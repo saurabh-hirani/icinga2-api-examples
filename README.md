@@ -1,15 +1,15 @@
 ### Introduction
 
-* The aim of this repo is to give the user a one-stop shop for trying out the icinga2 API - right from running the docker image, creating/querying/deleting dummy data alongwith gotchas that you can mess around with dummy data before moving on to production servers.
-* All the below examples are derived by referencing (icinga2 API)[http://docs.icinga.org/icinga2/snapshot/doc/module/icinga2/chapter/icinga2-api]
+* The aim of this repo is to give the user a one-stop shop for trying out the icinga2 API - right from running the docker image, creating/querying/deleting dummy data alongwith the gotchas learnt so that you can mess around with dummy data before moving on to production servers.
+* All the below examples are derived by referencing [icinga2 API](http://docs.icinga.org/icinga2/snapshot/doc/module/icinga2/chapter/icinga2-api)
 * Each example builds on the next i.e. before doing read operations, we create dummy data and so on.
 * Setup/teardown scripts are also provided to create and delete the dummy data.
 * Each update operation has a corresponding undo operation mentioned.
-* The examples in this repo are a subset of the operations specified in (icinga2 API)[http://docs.icinga.org/icinga2/snapshot/doc/module/icinga2/chapter/icinga2-api]
+* The examples in this repo are a subset of the operations specified in [icinga2 API](http://docs.icinga.org/icinga2/snapshot/doc/module/icinga2/chapter/icinga2-api)
 
 ### Host setup
 
-* Use the community docker image
+* Use the community [docker image](https://github.com/icinga/docker-icinga2)
 
   ```bash
   $ docker run -d -ti --name icinga2-api -p 4080:80 -p 4665:5665 icinga/icinga2
