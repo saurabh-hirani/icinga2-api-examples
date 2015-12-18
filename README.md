@@ -225,29 +225,7 @@
        -H 'Accept: application/json' -H 'X-HTTP-Method-Override: GET' \
        -X POST \
        -k "https://$ICINGA2_HOST:$ICINGA2_API_PORT/v1/objects/hosts/" \
-       -d '{ "filter": "match(\"*dummy*\",host.groups)", "attrs": ["name", "address"] }' | python -m json.tool
-  ```
-
-  host.groups is an array and one would expect to give the following expression:
-
-  ```bash
-  '{ "filter": "match(\"api_dummy_hostgroup\",host.groups)", "attrs": ["name", "address"] }' | python -m json.tool
-  ```
-
-  to match the exact hostgroup. But that doesn't work. You have to do:
-
-  ```bash
-  '{ "filter": "match(\"*api_dummy_hostgroup*\",host.groups)", "attrs": ["name", "address"] }' | python -m json.tool
-  ```
-
-  to match api_dummy_hostgroup - which doesn't seem right. Because this would also match - crapi_dummy_hostgroup. We can do the exact matching by the following:
-
-  ```bash
-  curl -u $ICINGA2_API_USER:$ICINGA2_API_PASSWORD \
-       -H 'Accept: application/json' -H 'X-HTTP-Method-Override: GET' \
-       -X POST \
-       -k "https://$ICINGA2_HOST:$ICINGA2_API_PORT/v1/objects/hosts/" \
-       -d '{ "filter": "match(\"*,api_dummy_hostgroup,*\",host.vars.hostgroups)", "attrs": ["name", "address"] }' | python -m json.tool
+       -d '{ "filter": "\"api_dummy_hostgroup\" in host.groups", "attrs": ["name", "address"] }' | python -m json.tool
   ```
 
   * Get host name, address attributes for a specific host
@@ -369,7 +347,7 @@
        -H 'Accept: application/json' \
        -X POST \
        -k "https://$ICINGA2_HOST:$ICINGA2_API_PORT/v1/objects/services/" \
-       -d '{ "filter": "match(\"*,api_dummy_hostgroup,*\",host.vars.hostgroups)", "attrs": { "enable_notifications": false } }' | python -m json.tool
+       -d '{ "filter": "\"api_dummy_hostgroup\" in host.groups", "attrs": { "enable_notifications": false } }' | python -m json.tool
   ```
 
   To undo:
@@ -379,7 +357,7 @@
        -H 'Accept: application/json' \
        -X POST \
        -k "https://$ICINGA2_HOST:$ICINGA2_API_PORT/v1/objects/services/" \
-       -d '{ "filter": "match(\"*,api_dummy_hostgroup,*\",host.vars.hostgroups)", "attrs": { "enable_notifications": true } }' | python -m json.tool
+       -d '{ "filter": "\"api_dummy_hostgroup\" in host.groups", "attrs": { "enable_notifications": true } }' | python -m json.tool
   ```
 
   * Schedule downtime for a host
@@ -419,11 +397,11 @@
        -H 'Accept: application/json' \
        -X POST \
        -k "https://$ICINGA2_HOST:$ICINGA2_API_PORT/v1/actions/schedule-downtime" \
-       -d '{ "type": "Host", "filter": "match(\"*,api_dummy_hostgroup,*\",host.vars.hostgroups)", "start_time": 1449065680, "end_time": 1449065823, "author": "api_user", "comment": "api_comment", "duration": 120, "fixed": true }' | python -m json.tool
+       -d '{ "type": "Host", "filter": "\"api_dummy_hostgroup\" in host.groups", "start_time": 1449065680, "end_time": 1449065823, "author": "api_user", "comment": "api_comment", "duration": 120, "fixed": true }' | python -m json.tool
 
   curl -u $ICINGA2_API_USER:$ICINGA2_API_PASSWORD  \
        -H 'Accept: application/json' \
        -X POST \
        -k "https://$ICINGA2_HOST:$ICINGA2_API_PORT/v1/actions/schedule-downtime" \
-       -d '{ "type": "Service", "filter": "match(\"*,api_dummy_hostgroup,*\",host.vars.hostgroups)", "start_time": 1449065680, "end_time": 1449065823, "author": "api_user", "comment": "api_comment", "duration": 120, "fixed": true }' | python -m json.tool
+       -d '{ "type": "Service", "filter": "\"api_dummy_hostgroup\" in host.groups)", "start_time": 1449065680, "end_time": 1449065823, "author": "api_user", "comment": "api_comment", "duration": 120, "fixed": true }' | python -m json.tool
   ```
