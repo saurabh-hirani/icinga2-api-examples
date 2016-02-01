@@ -21,7 +21,7 @@
   $ cat > icinga2_env_vars
 
   export ICINGA2_HOST=192.168.1.x # your local machine IP here
-  export ICINGA2_API_PORT=4665
+  export ICINGA2_API_PORT=5665
   export ICINGA2_API_USER=root
   export ICINGA2_API_PASSWORD=icinga
   ```
