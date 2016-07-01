@@ -377,7 +377,7 @@
        -H 'Accept: application/json' \
        -X POST \
        -k "https://$ICINGA2_HOST:$ICINGA2_API_PORT/v1/actions/schedule-downtime" \
-       -d '{ "type": "Host", "filter": "host.name==\"api_dummy_host_1\"", "start_time": 1449057685, "end_time": 1449057715, "author": "api_user", "comment": "api_comment", "fixed": true }' | python -m json.tool
+       -d '{ "type": "Host", "filter": "host.name==\"api_dummy_host_1\"", "start_time": 1449057685, "end_time": 1449057715, "author": "api_user", "comment": "api_comment", "fixed": true, "duration": 30 }' | python -m json.tool
   ```
 
   * Schedule downtime for all services of a host - change the timestamps accordingly
@@ -387,7 +387,7 @@
        -H 'Accept: application/json' \
        -X POST \
        -k "https://$ICINGA2_HOST:$ICINGA2_API_PORT/v1/actions/schedule-downtime" \
-       -d '{ "type": "Service", "filter": "host.name==\"api_dummy_host_1\"", "start_time": 1449064981, "end_time": 1449065129, "author": "api_user", "comment": "api_comment", "fixed": true }' | python -m json.tool
+       -d '{ "type": "Service", "filter": "host.name==\"api_dummy_host_1\"", "start_time": 1449064981, "end_time": 1449065129, "author": "api_user", "comment": "api_comment", "fixed": true, "duration": 30 }' | python -m json.tool
   ```
 
   * Schedule downtime for all hosts and services in a hostgroup - change the timestamps accordingly
@@ -397,11 +397,11 @@
        -H 'Accept: application/json' \
        -X POST \
        -k "https://$ICINGA2_HOST:$ICINGA2_API_PORT/v1/actions/schedule-downtime" \
-       -d '{ "type": "Host", "filter": "\"api_dummy_hostgroup\" in host.groups", "start_time": 1449065680, "end_time": 1449065823, "author": "api_user", "comment": "api_comment", "duration": 120, "fixed": true }' | python -m json.tool
+       -d '{ "type": "Host", "filter": "\"api_dummy_hostgroup\" in host.groups", "start_time": 1449065680, "end_time": 1449065823, "author": "api_user", "comment": "api_comment", "duration": 120, "fixed": true, "duration": 30 }' | python -m json.tool
 
   curl -u $ICINGA2_API_USER:$ICINGA2_API_PASSWORD  \
        -H 'Accept: application/json' \
        -X POST \
        -k "https://$ICINGA2_HOST:$ICINGA2_API_PORT/v1/actions/schedule-downtime" \
-       -d '{ "type": "Service", "filter": "\"api_dummy_hostgroup\" in host.groups)", "start_time": 1449065680, "end_time": 1449065823, "author": "api_user", "comment": "api_comment", "duration": 120, "fixed": true }' | python -m json.tool
+       -d '{ "type": "Service", "filter": "\"api_dummy_hostgroup\" in host.groups)", "start_time": 1449065680, "end_time": 1449065823, "author": "api_user", "comment": "api_comment", "duration": 120, "fixed": true, "duration": 30 }' | python -m json.tool
   ```
